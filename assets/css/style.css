@@ -477,6 +477,19 @@ section {
   padding-bottom: 5px;
 }
 
+.oss {
+  font-size: 26px;
+  font-weight: 700;
+  margin-bottom: 20px;
+  color: #050d18;
+  margin-left: 15px;
+}
+
+.oss img {
+  height: 26px;
+  padding-bottom: 5px;
+}
+
 .resume .resume-item {
   padding: 0 0 15px 20px;
   margin-top: -2px;
@@ -710,6 +723,21 @@ section {
   margin-bottom: 5px;
 }
 
+.services .grey {
+  font-size: 16px;
+  background: #e4edf9;
+  padding: 4px 15px;
+  padding-bottom: 1px;
+  display: inline-block;
+  font-weight: 600;
+  margin-left: 5px;
+}
+
+.services .grey img {
+  height: 20px;
+  padding-bottom: 5px;
+}
+
 .services .icon {
   float: left;
   display: flex;
@@ -741,7 +769,7 @@ section {
   margin-left: 80px;
   font-weight: 700;
   margin-bottom: 7px;
-  font-size: 20px;
+  font-size: 19px;
 }
 
 .services .title a {
