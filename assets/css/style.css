@@ -14,7 +14,7 @@ body {
 }
 
 a {
-  color: #149ddd;
+  color: #2456A3;
   text-decoration: none;
 }
 
@@ -196,7 +196,7 @@ h6 {
 .nav-menu .active i,
 .nav-menu .active:focus i,
 .nav-menu li:hover>a i {
-  color: #149ddd;
+  color: #2456A3;
 }
 
 /* Mobile Navigation */
@@ -745,10 +745,10 @@ section {
   justify-content: center;
   width: 54px;
   height: 54px;
-  background: #149ddd;
+  background: #2456A3;
   border-radius: 50%;
   transition: 0.5s;
-  border: 1px solid #149ddd;
+  border: 1px solid #2456A3;
 }
 
 .services .icon i {
@@ -762,7 +762,7 @@ section {
 }
 
 .services .icon-box:hover .icon i {
-  color: #149ddd;
+  color: #2456A3;
 }
 
 .services .title {
