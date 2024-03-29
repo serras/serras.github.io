@@ -23,6 +23,18 @@ a:hover {
   text-decoration: none;
 }
 
+blockquote {
+  font-style: italic;
+  background-color: lightgrey;
+  padding: 10px 10px 1px 10px;
+}
+
+pre {
+  background-color: #173b6c;
+  padding: 10px 10px 10px 10px;
+  color: white;
+}
+
 h1,
 h2,
 h3,
