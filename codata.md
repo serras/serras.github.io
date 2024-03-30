@@ -7,14 +7,16 @@ In the programming world, we often speak about the different approaches taken by
 > This (long) post is inspired by the ideas in [_Deriving Dependently-Typed OOP_](https://arxiv.org/ftp/arxiv/papers/2403/2403.06707.pdf), [_Codata in Action_](https://pauldownen.com/publications/esop2019.pdf) and [_Compiling without Continuations_](https://pauldownen.com/publications/pldi17.pdf).
 
 * [Data and interfaces (= codata)](#data-and-interfaces--codata)
-    * [The same thing, in two ways](#the-same-thing-in-two-ways)
+* [The same thing, in two ways](#the-same-thing-in-two-ways)
     * [The expression problem](#the-expression-problem)
     * [Where is the duality?](#where-is-the-duality)
 * [Functions are not built-in](#functions-are-not-built-in)
 * [Inheritance](#inheritance)
-* [Taking out the sugar](#taking-out-the-sugar)
-* [Join points](#join-points)
+    * [Taking out the sugar](#taking-out-the-sugar)
 * [Generalized (Co)data Types](#generalized-codata-types)
+* [Join points](#join-points)
+    * [Other uses of join points](#other-uses-of-join-points)
+* [Conclusion](#conclusion)
 
 ## Data and interfaces (= codata)
 
@@ -63,7 +65,7 @@ def summer = object : Collector<Integer, Integer> {
 
 Functional programming tends to favor data-oriented programming. Pattern matching, for example, is a powerful way to inspect values, which assumes that every piece of data is built by piling up calls to constructors. On the other hand, object-oriented programming favors interface-oriented programming, in which values describe some behavior instead of storing data.
 
-### The same thing, in two ways
+## The same thing, in two ways
 
 > The examples in this section are taken from [_Deriving Dependently-Typed OOP_](https://arxiv.org/ftp/arxiv/papers/2403/2403.06707.pdf).
 
@@ -255,7 +257,7 @@ We argue in this post that, even though it is correct from a typing perspective,
 
 What about typing, then? Remember that when we say that "`T` is a subtype of `S`", we mean that "`T` can be used everywhere `S` can", which more formally means "a value of type `T` can be used as an argument in a position where a parameter of type `S` is required". From that perspective, we have that "a data type `T` extends `S`" means that "`S` is a subtype of `T`" -- like above, whenever we require a `WeekDay`, we can give a `WeekendDay` value. One way we can further strengthen our intuition for that rule is by the fact that, as discussed above, constructors and destructors put the type we are defining in very different positions, which in particular have opposite _variances_. As a result, it is natural that constructors and destructors behave in opposite ways with respect to the subtyping relation.
 
-## Taking out the sugar
+### Taking out the sugar
 
 The language we have defined so far is comprised of five different elements:
 
@@ -311,8 +313,6 @@ data User : Person, Company { }
 ```
 
 One interesting fact regarding single-constructor data types is that we can define nicer syntax to access each of their fields, `person.name`. As in the case of lambda syntax, it seems that having a single way to construct or destruct values lends itself to providing nicer syntax.
-
-## Join points
 
 ## Generalized (Co)data Types
 
@@ -372,3 +372,74 @@ interface Raise<E> {
 ```
 
 The accumulation interface, however, is not available for any error type `E`, but specifically for non-empty lists, where we place each of the errors. In an ideal world, this method would be part of `Raise`, but with a refined type, `Raise<NonEmptyList<E>>.accumulate(...)`. Alas, in the current implementation, we need to define an additional interface.
+
+## Join points
+
+Looking at the duality between data and interfaces as simply "moving the arrow" is a bit handwavy, especially the fact that methods have a result type that data constructors do not. There is a way to make methods only _consume_ values, to do so we need to introduce the concept of _join points_, as discussed in [this paper](https://pauldownen.com/publications/pldi17.pdf).
+
+The inspiration comes from [continuation-passing style](https://en.wikipedia.org/wiki/Continuation-passing_style), a technique where functions do not _return_, but rather take an additional argument describing the _next_ step. Imagine we have our regular `increment` function.
+
+```kotlin
+fun increment(x: Int) = x + 1
+```
+
+Its CPS version is extended with an additional argument, which is called at the end of execution.
+
+```kotlin
+fun incrementCPS(x: Int, next: (Int) -> Unit) = next(x + 1)
+```
+
+We compose larger behaviors by building larger continuations. For example, this is how we write a function to add two based on `increment`.
+
+```kotlin
+fun addTwoCPS(x: Int, next: (Int) -> Unit) =
+  incrementCPS(x) { xPlusOne ->
+    incrementCPS(xPlusOne) { xPlusTwo ->
+      next(xPlusTwo)
+    }
+  }
+```
+
+Those examples, however, use a function type, which we are trying to avoid. Instead, we introduce a new basic element in our formalization, that of a _join point_. You can think of them as places where we can continue execution. The only thing we can do with such a join point is _jumping_ (or returning) to them, which immediately moves execution to that point. Much like `goto`s in older languages, but with one important difference: join points have a _type_ that describes the arguments they expect.
+
+Since there is no agreed syntax for join points, we are going to use the keyword `join` to describe them, and `return @p` for a jump to join point `p`. Given their similarity with continuations, we are going to use lambda syntax (but with `=>` instead of `->`) to construct new join points.
+
+```kotlin
+def increment(x: Int, next: join Int) = return @next (x + 1)
+
+def addTwo(x: Int, next: join Int) =
+  increment(x) { xPlusOne =>
+    increment(xPlusOne) { xPlusTwo =>
+      return @next xPlusTwo
+    }
+  }
+```
+
+Finally, our methods only _consume_ values. What before was the return type becomes now a join point.
+
+```kotlin
+interface Collector<A, R> {
+    initialValue(next: join R)
+    accumulate(old: R, new: A, next: join R)
+}
+```
+
+The intuition here is that to call a function you actually are providing _two_ pieces of data. The first one is the set of arguments to the function. The second one is the place where the function ought to return once the job is done. This is quite similar to how function calls work at the assembly level, where the stack includes both arguments and the return point.
+
+### Other uses of join points
+
+Join points are only featured in the [Core language of the Haskell GHC compiler](https://pauldownen.com/publications/pldi17.pdf). Their initial goal is to fix the problem of several branches in a pattern match sharing their body. Join points provide a (type-safe) way to jump to the shared code.
+
+Although their application has not been explored, one potential usage is describing how exceptions operate in most languages. Instead of a single join point representing normal return, functions would include join points for exceptional return.
+
+```kotlin
+interface UserService {
+  userById(id: UserId, next: join User?, problem: join Throwable)
+} 
+```
+
+Throwing an exception translates to jumping to the `problem` join point, whereas protecting some block of code with a `try` / `catch` translates to using the exception handler as the argument for `problem`.
+
+## Conclusion
+
+The aim of this post was always to open your mind, diving into new ideas coming from academia over the relation between FP and OOP. If you want to go further than GADTs, [_Deriving Dependently-Typed OOP_](https://arxiv.org/ftp/arxiv/papers/2403/2403.06707.pdf) moves in the direction of dependently-typed programming. In this post, we have tried to notation based on `object` to build values of interfaces, but [copattern matching](https://www2.tcs.ifi.lmu.de/~abel/popl13.pdf) provide an interesting twist on pattern matching to describe them.
