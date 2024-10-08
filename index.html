@@ -57,6 +57,7 @@
       <nav id="navbar" class="nav-menu navbar">
         <ul>
           <li><a href="#books" class="nav-link scrollto active"><i class="bi bi-book"></i> <span>Books</span></a></li>
+          <li><a href="#tutorials" class="nav-link scrollto"><i class="bi bi-cup-hot"></i> <span>Tutorials</span></a></li>
           <li><a href="#talks" class="nav-link scrollto"><i class="bi bi-chat-right-text"></i> <span>Talks</span></a></li>
           <li><a href="#opensource" class="nav-link scrollto"><i class="bi bi-boxes"></i> <span>Open Source</span></a></li>
           <li><a href="#research" class="nav-link scrollto"><i class="bi bi-signpost-2"></i> <span>Research</span></a></li>
@@ -125,6 +126,9 @@
             <p class="fst-italic">
               Kotlin lies in a really interesting intersection of programming styles, with functional programming becoming increasingly popular. Functional style is by no means new, so why not take advantage of the decades of ideas, concepts, and patterns from that community? In this book we explore those ideas with a higher impact on Kotlin code, including how to model data in immutable fashion, describing dependencies using contexts and effects, or treating actions as data.
             </p>
+            <p>
+              The free tutorial <a href="https://serranofp.com/poke-fun/">Poké-Fun with Kotlin and Arrow</a> contains tasks to practice functional programming idioms in Kotlin.
+            </p>
             <div class="row">
               <div class="col-lg-4">
                 <ul>
@@ -137,6 +141,7 @@
                 </ul>
               </div>
             </div>
+
           </div>
         </div>
 
@@ -224,6 +229,66 @@
       </div>
     </section><!-- End About Section -->
 
+    <section id="tutorials" class="resume">
+      <div class="container">
+
+        <div class="section-title">
+          <h2>Tutorials</h2>
+        </div>
+
+        <p>The title of each workshop links to the slides and example code</p>
+
+        <div class="row">
+          <div class="col-lg-4">
+            <h3 class="resume-title" style="margin-top: 0px;">
+              <img src="assets/img/haskell-logo.png" alt="Haskell logo" />
+              Haskell
+            </h3>
+            <div class="resume-item">
+              <h4><a href="https://serranofp.com/zurihac-workshop">Trading Card Game Workshop</a></h4>
+              <h5 style="display: inline-block;">ZuriHac</h5>
+              <p style="display: inline-block; margin-left: 10px;"><em>June 2022</em></p>
+              <p>
+                <i class="bi bi-chevron-right"></i> Part 1: <a href="https://www.youtube.com/watch?v=kdkWhtpX1BA&list=PLhOAqXNnGvK4_TYMuVygLwWEewntFCBbH">The Legend of DSLs</a>
+                <br />
+                <i class="bi bi-chevron-right"></i> Part 2: <a href="https://www.youtube.com/watch?v=Gt6OeWxkcEI&list=PLhOAqXNnGvK4_TYMuVygLwWEewntFCBbH">Adventures in IO</a>
+              </p>
+            </div>
+          </div>
+
+          <div class="col-lg-4">
+            <h3 class="resume-title" style="margin-top: 0px;">
+              <img src="assets/img/kotlin-logo.png" alt="Kotlin logo" />
+              Kotlin
+            </h3>
+            <div class="resume-item">
+              <h4><a href="https://serranofp.com/poke-fun/">Poké-Fun with Kotlin and Arrow</a></h4>
+              <p>Create your own deck builder using functional programming patterns</p>
+            </div>
+          </div>
+
+          <div class="col-lg-4">
+            <h3 class="resume-title" style="margin-top: 0px;">
+              &vdash;
+              Programming Languages
+            </h3>
+            <div class="resume-item">
+              <h4><a href="https://serranofp.com/types-workshop/">Implement Your Own Type Checker</a></h4>
+              <h5 style="display: inline-block;">Lambda World</h5>
+              <p style="display: inline-block; margin-left: 10px;"><em>October 2024</em></p>
+            </div>
+            <div class="resume-item">
+              <h4><a href="https://serranofp.com/dddeu21/">Being Formal Yet Lightweight</a></h4>
+              <h5 style="display: inline-block;">DDD Europe</h5>
+              <p style="display: inline-block; margin-left: 10px;"><em>February 2021</em></p>
+              <p>A workshop about <a href="https://alloy.readthedocs.io/en/latest/">Alloy</a></p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+
     <!-- ======= Resume Section ======= -->
     <section id="talks" class="resume">
       <div class="container">
@@ -238,18 +303,6 @@
               <img src="assets/img/haskell-logo.png" alt="Haskell logo" />
               Haskell
             </h3>
-            <div class="resume-item">
-              <h4>Trading Card Game Workshop</h4>
-              <h5 style="display: inline-block;">ZuriHac</h5>
-              <p style="display: inline-block; margin-left: 10px;"><em>June 2022</em></p>
-              <p>
-                <i class="bi bi-chevron-right"></i> <a href="https://serranofp.com/zurihac-workshop">Slides and exercises</a>
-                <br />
-                <i class="bi bi-chevron-right"></i> Part 1: <a href="https://www.youtube.com/watch?v=kdkWhtpX1BA&list=PLhOAqXNnGvK4_TYMuVygLwWEewntFCBbH">The Legend of DSLs</a>
-                <br />
-                <i class="bi bi-chevron-right"></i> Part 2: <a href="https://www.youtube.com/watch?v=Gt6OeWxkcEI&list=PLhOAqXNnGvK4_TYMuVygLwWEewntFCBbH">Adventures in IO</a>
-              </p>
-            </div>
             <div class="resume-item">
               <h4><a href="https://www.youtube.com/watch?v=2nLVRcDWKJw">A Beginner's Guide to Haskell</a></h4>
               <h5 style="display: inline-block;">Haskell eXchange (Novice Track)</h5>
@@ -322,7 +375,7 @@
               <p style="display: inline-block; margin-left: 10px;"><em>December 2019</em></p>
             </div>
             <div class="resume-item">
-              <h4><a href="https://www.youtube.com/watch?v=JbHnzCtWof0&list=PLhOAqXNnGvK4_TYMuVygLwWEewntFCBbH">A Hands on Tutorial to Generic Programming</a></h4>
+              <h4>A Hands on Tutorial to Generic Programming</h4>
               <h5 style="display: inline-block;">LambdaConf</h5>
               <p style="display: inline-block; margin-left: 10px;"><em>December 2018</em></p>
               <br />
@@ -431,13 +484,6 @@
               <span style="font-size: 1.2em;">&vdash;</span>
               Types and Categories
             </h3>
-            <div class="resume-item">
-              <h4>Being Formal Yet Lightweight</h4>
-              <h5 style="display: inline-block;">DDD Europe</h5>
-              <p style="display: inline-block; margin-left: 10px;"><em>February 2021</em></p>
-              <p>A workshop about <a href="https://alloy.readthedocs.io/en/latest/">Alloy</a></p>
-              <p><i class="bi bi-chevron-right"></i> <a href="https://serranofp.com/dddeu21">Slides and exercises</a></p>
-            </div>
             <div class="resume-item">
               <h4><a href="https://www.youtube.com/watch?v=GDITBmIzCDs&list=PLhOAqXNnGvK4_TYMuVygLwWEewntFCBbH">A Quick Look at Impredicativity</a></h4>
               <h5 style="display: inline-block;">ICFP</h5>
