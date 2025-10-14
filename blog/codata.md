@@ -1,4 +1,4 @@
-# The marriage of FP and OOP
+# The marriage of FP and OOP (WIP)
 
 _by [Alejandro Serrano Mena](https://serranofp.com/), [`@trupill`](https://twitter.com/trupill)_
 
