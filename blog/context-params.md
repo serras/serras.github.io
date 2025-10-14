@@ -6,6 +6,15 @@ _by Alejandro Serrano Mena ([website](https://serranofp.com/), [Twitter](https:/
 
 > This blog post discusses my opinions about API design after the advent of context parameters into the Kotlin language, in whose development I took part. This should not be taken as the official opinion of the Kotlin Team.
 
+* [Introduction](#introduction)
+* [The spotlight principles](#the-spotlight-principles)
+* [Ok, but when to use context parameters?](#ok-but-when-to-use-context-parameters)
+* [Building things](#building-things)
+* [The dance of the receivers](#the-dance-of-the-receivers)
+* [Summary](#summary)
+
+## Introduction
+
 Let us quickly review the main ingredients of context parameters. At first sight, context parameters are just like value parameters, except you define them at the beginning of the signature:
 
 ```kotlin
@@ -38,7 +47,7 @@ Let me tell you, dear reader, how I imagine a piece of Kotlin source code (espec
 
 Any other implicit value is just a **secondary** character in the scene. Think of any TV series, and how every time a secondary character enters the scene the main ones (with the spotlight) always something like "remember John, my cousin with two kids?". In Kotlin terms, you need to _call_ the implicit value you want to enter the scene; context parameters have a _name_, after all. The **first spotlight principle** distills this idea: it is fine for a value in the spotlight to function as a secondary character implicitly, but you need to be _explicit_ whenever you want a secondary to enter the spotlight. Going back to Kotlin, this is the explanation behind the fact that the compiler may use receivers to "fill" context arguments, but not the other way around.
 
-The **second spotlight principle** subscribes the idea that we, as humans, can only keep track of a handful of characters at a time. Kotlin follows that rule by providing a very limited number of "spotlight arguments": _one_ if using extension receivers, that may be extended to _two_ if the function is defined inside a class, that acts as dispatch receiver.
+The **second spotlight principle** subscribes the idea that we, as humans, can only keep track of a handful of characters at a time. Kotlin follows that rule by providing a very limited number of "spotlight arguments": _one_ if using extension receivers, that may be extended to _two_ if the function is defined inside a class, that acts as dispatch receiver. The previous proposal of context receivers didn't adhere to this principle: some users disliked how polluted the implicit scoped would become, and this is a direct consequence of having too many main characters on stage.
 
 ## Ok, but when to use context parameters?
 
@@ -156,8 +165,29 @@ fun RenderAsHtml.renderAsHtml() = flow.renderAsHtml()
 
 In this blog post I advocate for a clearer separation between use cases for _receivers_ and _context parameters_. Not every use case of extension receivers pre-context-parameters need to be transformed into context parameters right away.
 
-| Kind | Usual naming | Context or receiver? | Exposed as |
-|--|--|--|--|
-| Invisible | `BlahScope` | Context | Core contextual function + contextual API |
-| Leaf-only | `BlahService` | Context | Plain interface |
-| Builder | `BlahBuilder`, `BlahWriter` | Receiver | Plain interface + "dance" function |
+<table>
+    <tr>
+        <th>Kind</th>
+        <th>Common names</th>
+        <th>Context or receiver?</th>
+        <th>Exposed as</th>
+    </tr>
+    <tr>
+        <td>Invisible</td>
+        <td><tt>BlahScope</tt></td>
+        <td>Context</td>
+        <td>Core contextual function + contextual API</td>
+    </tr>
+    <tr>
+        <td>Leaf-only</td>
+        <td><tt>BlahService</tt></td>
+        <td>Context</td>
+        <td>Plain interface + named access</td>
+    </tr>
+    <tr>
+        <td>Builder</td>
+        <td><tt>BlahBuilder</tt>, <tt>BlahWriter</tt></td>
+        <td>Receiver</td>
+        <td>Plain interface + "dance" function</td>
+    </tr>
+<table>
