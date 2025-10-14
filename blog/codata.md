@@ -1,6 +1,6 @@
 # The marriage of FP and OOP (WIP)
 
-_by [Alejandro Serrano Mena](https://serranofp.com/), [`@trupill`](https://twitter.com/trupill)_
+_by Alejandro Serrano Mena ([website](https://serranofp.com/), [Twitter](https://twitter.com/trupill), [Bluesky](https://bsky.app/profile/serranofp.com))_
 
 In the programming world, we often speak about the different approaches taken by _functional_ and _object-oriented_ programming. Most mainstream languages nowadays feature a blend of both styles. This blend oftentimes seems ad hoc, just two things put together because they go well together. But if we look a bit further, we discover an intriguing duality between both approaches, which helps us to understand both sides of the coin more uniformly. This journey is going to take a while, but it will definitely give you a different view of programming.
 
