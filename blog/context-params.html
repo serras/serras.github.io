@@ -36,14 +36,47 @@
 </head>
 
 <body>
-    <section id="about" class="about">
-        <div class="container" id="content">
+    <header id="header">
+        <div class="d-flex flex-column">
 
-            <h2>Context parameters and API design</h2>
-
-            <p>The content</p>
+        <div class="profile">
+            <img src="../assets/img/avatar500.png" alt="Avatar of Alejandro Serrano Mena" class="img-fluid rounded-circle">
+            <h1 class="text-light"><a href="index.html">Alejandro <br /> Serrano Mena</a></h1>
+            <div class="social-links mt-3 text-center">
+            <a href="https://twitter.com/trupill" class="twitter" aria-label="Twitter"><i class="bx bxl-twitter"></i></a>
+            <a href="https://bsky.app/profile/serranofp.com" class="bsky" aria-label="Bluesky"><i class="bi bi-bluesky"></i></a>
+            <a href="https://github.com/serras/" class="github" aria-label="GitHub"><i class="bx bxl-github"></i></a>
+            <a href="https://www.linkedin.com/in/alejandroserranomena/" class="linkedin" aria-label="LinkedIn"><i class="bx bxl-linkedin"></i></a>
+            </div>
         </div>
-    </section>
+
+        <div class="profile">
+            <h6>Researcher<br />Software Engineer<br />Trainer</h6>
+        </div>
+
+        <nav id="navbar" class="nav-menu navbar">
+            <ul>
+            <li><a href="../index.html#blog" class="nav-link active"><i class="bi bi-file-text"></i> <span>Blog</span></a></li>
+            <li><a href="../index.html#books" class="nav-link"><i class="bi bi-book"></i> <span>Books</span></a></li>
+            <li><a href="../index.html#tutorials" class="nav-link"><i class="bi bi-cup-hot"></i> <span>Tutorials</span></a></li>
+            <li><a href="../index.html#talks" class="nav-link"><i class="bi bi-chat-right-text"></i> <span>Talks</span></a></li>
+            <li><a href="../index.html#opensource" class="nav-link"><i class="bi bi-boxes"></i> <span>Open Source</span></a></li>
+            <li><a href="../index.html#research" class="nav-link"><i class="bi bi-signpost-2"></i> <span>Research</span></a></li>
+            </ul>
+        </nav><!-- .nav-menu -->
+        </div>
+    </header><!-- End Header -->
+
+    <main id="main">
+        <section id="about" class="about">
+            <div class="container">
+                <div id="content">
+                    <h1>Context parameters and API design</h1>
+                    <p>The content</p>
+                </div>
+            </div>
+        </section>
+    </main>
 
     <script>
         fetch('context-params.md')
